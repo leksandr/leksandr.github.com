@@ -134,7 +134,7 @@
 		var ms = elapsedTime % 1000;
 		var sec = ((elapsedTime % 60000) - ms) / 1000;
 		var min = ((elapsedTime % 3600000) - (elapsedTime % 60000)) / 60000;
-		var hour = ((elapsedTime % 86400000) - (elapsedTime % 3600000)) / 60000000;
+		var hour = ((elapsedTime % 86400000) - (elapsedTime % 3600000)) / 3600000;
 		ms = this.addZeroes(ms, 3);
 		sec = this.addZeroes(sec, 2);
 		min = this.addZeroes(min, 2);
