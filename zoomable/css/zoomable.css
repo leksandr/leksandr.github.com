@@ -1,0 +1,33 @@
+
+.zoomable-img{
+	position: fixed;
+}
+
+.zoomable-img-wrapper{
+	position: fixed;
+}
+
+.zoomable-close{
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	font-size: 35px;
+	font-weight: bold;
+	color: white;
+	background: black;
+	cursor: pointer;
+}
+
+.zoomable-holder{
+	position: fixed;
+	display: none;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: black;
+	opacity: 0.5;
+}

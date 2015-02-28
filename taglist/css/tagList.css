@@ -1,0 +1,100 @@
+/*начало reset CSS*/
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+.taglist-vidget *{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+/* конец reset CSS */
+
+.taglist-vidget:after,
+.taglist-tag-wrapper:after,
+.taglist-menu-wrapper:after{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.taglist-place{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.taglist-tag-wrapper{
+	display: inline-block;
+	background: #999999;
+	margin-right: 10px;
+	margin-bottom: 3px;
+	border-radius: 4px;
+}
+
+.taglist-tag,
+.taglist-delete{
+	color: #FFFFFF;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.taglist-tag{	
+	font-family: Verdana;
+	font-size: 12px;
+	padding: 2px 4px 3px 4px;
+}
+
+.taglist-delete{
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 2px 6px 3px 6px;
+	border-left: solid 1px #6E6E6E;
+}
+
+
+.taglist-place.taglist-view-mode .taglist-delete,
+.taglist-form.taglist-view-mode,
+.taglist-delete-all-tags.taglist-view-mode{
+	display: none;
+}
+
+.taglist-menu, .taglist-delete-all-tags{
+	color: #56B7DE;
+	font-family: Verdana;
+	font-size: 14px;
+	border-bottom: 1px dashed #56B7DE;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.taglist-menu{
+	float: left;
+}
+
+.taglist-delete-all-tags{
+	float: right;
+}
+
+.taglist-form{
+	float: left;
+	margin-bottom: 10px;
+}
+
+.taglist-form>input{
+	float: left;
+	font-family: Arial;
+	font-size: 16px;
+	border: solid 1px #999999;
+	padding-left: 10px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	height: 30px;
+}
+
+.taglist-form>button{
+	float: right;
+	background: #56B7DE;
+	color: #FFFFFF;
+	font-family: Arial;
+	font-size: 16px;
+	border: solid 1px #56B7DE;
+	padding: 0 10px 0 10px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	height: 32px;
+}

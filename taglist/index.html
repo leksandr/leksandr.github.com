@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Taglist Widget</title>
+	<link rel="stylesheet" href="css/tagList.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src = "js/jquery.min.js"></script> 
+	<script src = "js/tagList-2.js"></script> 
+	</head>
+	<body>
+		<div class="tag-list-vidget-1"></div>
+		<div class="tag-list-vidget-2"></div>
+
+		<script>
+		var arrayTag = ['javaScript  ', '   html ', 'css'];
+		window.tagList = new TagList(document.querySelector('.tag-list-vidget-1'), arrayTag);
+		window.tagList = new TagList(document.querySelector('.tag-list-vidget-2'));
+		</script>
+	</body>
+</html>
