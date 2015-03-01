@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/ContextMenu.css">
+	<script src="ContextMenu.js"></script>
+</head>
+<body>
+	<div class="call-context-menu">
+		<span>Место вызова контекстного меню</span>
+	</div>
+	<div class="call-context-menu-2">
+		<span>Место вызова контекстного меню #2</span>
+	</div>
+	<script>
+	(function(){
+	var menuExample1 = [{
+		title: 'File',
+		action: function() {
+			console.log('open file');
+		}
+	}, {
+		title: 'Edit',
+		action: function() {
+			console.log('edit content');
+		}
+	}, {
+		title: 'More stuff...',
+		submenu: [{
+			title: 'Send by email',
+			action: function() {
+				console.log('emailed');
+			}
+		}, {
+			title: 'Send via skype',
+			action: function() {
+				console.log('skyped');
+			}
+		}]
+	}, {
+		title:'Follow me',
+		submenu:[{
+			title:'Follow me #2',
+			submenu:[{
+				title:'Push me #1',
+				action: function(){
+					console.log('pushed #1');
+				}
+			},{
+				title:'Push me #2',
+				action: function(){
+					console.log('pushed #2');
+				}
+			}]
+		}]
+	}];
+
+	var menuExample2 = [{
+		title: 'File',
+		action: function() {
+			console.log('open file');
+		}
+	}, {
+		title: 'Edit',
+		action: function() {
+			console.log('edit content');
+		}
+	}, {
+		title: 'More stuff...',
+		submenu: [{
+			title: 'Send by email',
+			action: function() {
+				console.log('emailed');
+			}
+		}, {
+			title: 'Send via skype',
+			action: function() {
+				console.log('skyped');
+			}
+		}]
+	}];
+	
+	window.cm = new ContextMenu(document.body.querySelector('.call-context-menu'),menuExample1);
+	window.cm2 = new ContextMenu(document.body.querySelector('.call-context-menu-2'),menuExample2);
+	})();
+	</script>
+</body>
+</html>

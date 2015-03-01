@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Slider</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/slider.css">
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src = "js/slider.js"></script>
+</head>
+<body>
+	<div class="block-1"></div>
+	<div class="block-2"></div>
+	<script>
+		var node = 'body';
+		var slides = ['slider/image1.jpg', 'slider/image2.jpg', 'slider/image3.jpg', 'slider/image4.jpg'];
+		window.slider1 = new CreateSlider('.block-1',slides);
+		window.slider2 = new CreateSlider('.block-2',slides);
+	</script>
+
+</body>
+</html>

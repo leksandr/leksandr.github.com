@@ -1,0 +1,26 @@
+body{
+	width: 100%;
+	min-height: 500px;
+}
+
+.call-context-menu{
+	border: solid 1px black;
+	margin:100px auto;
+	width:200px;
+	height:200px;
+	font-family: Arial,sans-serif;
+	font-size: 20px;
+	text-align: center;
+	background: #BABABA;
+}
+
+.call-context-menu-2{
+	border: solid 1px black;
+	margin:100px auto;
+	width:200px;
+	height:200px;
+	font-family: Arial,sans-serif;
+	font-size: 20px;
+	text-align: center;
+	background: #555555;
+}
