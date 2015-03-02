@@ -1,6 +1,6 @@
 #Примеры работ
 
-##[Виджет TagList](https://github.com/leksandr/leksandr.github.com/tree/master/examples/taglist)
+##[Виджет TagList](https://github.com/leksandr/leksandr.github.com/tree/master/examples/taglist)  ###[ссылка на файлы с кодом](https://github.com/leksandr/leksandr.github.com/tree/master/examples/taglist)
 
 1. Может переключаться из режима "редактирования" в режим "просмотра". Для переключения используется 1 кнопка. Кнопка меняет свой текст в зависимости от режима.
 2. TagList может быть инициализирован с предопределенным списком тегов, который передается опциональным аргументом.
