@@ -50,6 +50,7 @@ img/large/dog.jpg
 - каждый элемент, содержащий подменю, должен быть отмечен ">" символом
 - подменю открывается при наведении на пункт подменю, и закрывается при уходе мышки с подменю или пункта подменю 
 
+```
 var menuExample = [{
 	title: 'File',
 	action: function () {console.log('open file')}
@@ -66,3 +67,4 @@ var menuExample = [{
 		action: function () {console.log('skyped')}
 	}]
 }]
+```
