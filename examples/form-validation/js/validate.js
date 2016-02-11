@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 	var usedEmails = ['author@mail.com', 'foo@mail.com', 'tester@mail.com'];
-
+ 
 	function Validate() {
 		var _this = this;
 		var arisingTimeout;
