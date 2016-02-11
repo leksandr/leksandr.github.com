@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-
+ 
 	function TagList(node, arrayTag) {
 		var KEYCODE_ENTER = 13;
 		this.$node = $(node);
