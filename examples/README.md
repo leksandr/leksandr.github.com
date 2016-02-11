@@ -48,7 +48,7 @@ img/large/dog.jpg
 Поля с ошибкой должны подсвечиваться должным образом.
 Запрос с валидацией емейла слать на сервер https://aqueous-reaches-8130.herokuapp.com. jQuery использовать нельзя, синхронные запросы использовать нельзя.
 
-##[Контекстное меню](https://leksandr.github.io/examples/ContextNenu)
+##[Контекстное меню](https://leksandr.github.io/examples/ContextMenu)
 [ссылка на файлы с кодом](https://github.com/leksandr/leksandr.github.com/tree/master/examples/ContextNenu)
 
 Условия:
