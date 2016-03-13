@@ -1,31 +1,11 @@
-/*.tblCalc{
-			border:1px solid gray;
-			margin:0;
-			padding:0;
-			width:250px;
-			text-align:center;
-		}
-		.tblCalc input{
-			border:1px solid gray;
-			width:30px;
-			margin:4px;
-		}
-		#btnWide{
-			width:80px;
-		}
-		#editWide{
-			width:250px;
-		}
-*/
 .calc{
 	display:inline-block;
 	padding: 10px;
 	border:1px solid gray;
+	background: #A7C0DC;
 }
-.calc input[type="text"]{
-	width:350px;
-	height: 25px;
-	font-size: 20px;
+.calc textarea{
+	font-size: 19px;
 }
 
 .calc .button{
@@ -40,11 +20,13 @@
 	font-size: 20px;
 }
 
-.calc .row-of-buttons{
-text-align: center ;
+.calc .buttons-wrap {
+	display: table;
+	margin: 10px auto;
 }
+
 .calc .row-of-buttons:after {
-    content: '';
-    display: block;
-    clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }

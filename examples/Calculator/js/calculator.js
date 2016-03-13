@@ -1,6 +1,11 @@
 (function() {
 	'use strict';
 	var ENTER_KEYCODE = 13;
+	var ESCAPE_KEYCODE = 27;
+	var ALLOWED_SYMBOLS_KEYCODES = [
+		96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+		110, 111, 35, 36, 37, 38, 39, 40, 48, 54, 56, 57, 8
+	]; //  http://filesd.net/kibor/codekeys.php
 
 	function isNumeric(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
@@ -8,9 +13,6 @@
 
 	function getPriority(operator) {
 		switch (operator) {
-			//case "(":
-			//case ")":
-			//return 0;
 			case "+":
 			case "-":
 				return 1;
@@ -24,17 +26,15 @@
 		}
 	}
 
-	function getRpn(expression) {
+	function getRpn(expression) { //Преобразование в обратную польскую запись
 		var output = [];
 		var operators = ['+', '*', '/', '^'];
 		var stack = [];
-		//debugger;
+
 		for (var i = 0; i < expression.length; i++) {
 			if (operators.indexOf(expression[i]) > -1 || (expression[i] === '-' && expression[i - 1] != '(' && output.length !== 0)) {
 				if (stack.length === 0 || getPriority(expression[i]) > getPriority(stack.slice(-1)[0])) {
-					//console.log('before',getPriority(expression[i]),getPriority(stack.slice(-1)[0]), stack);
 					stack.push(expression[i]);
-					//console.log('after',getPriority(expression[i]),getPriority(stack.slice(-1)[0]), stack);
 				} else {
 					while (getPriority(expression[i]) <= getPriority(stack.slice(-1)[0]) && stack.length !== 0 && stack.slice(-1)[0] != '(') {
 						output.push(stack.pop());
@@ -42,18 +42,12 @@
 					stack.push(expression[i]);
 				}
 			} else if (isNumeric(expression[i]) || expression[i] === '.' || (expression[i] === '-' && expression[i - 1] === '(')) {
-				isNumeric(expression[i - 1]) || 
-				expression[i - 1] === '.' || 
-				(expression[i - 1] === '-' && expression[i - 2] === '(')||
-				(isNumeric(expression[i]) && output.slice(-1)[0] === '-' && output.length === 1) ? output.push(output.pop() + expression[i]) : output.push(expression[i]);
+				isNumeric(expression[i - 1]) || expression[i - 1] === '.' || (expression[i - 1] === '-' && expression[i - 2] === '(') || (isNumeric(expression[i]) && output.slice(-1)[0] === '-' && output.length === 1) ? output.push(output.pop() + expression[i]) : output.push(expression[i]);
 			} else if (expression[i] === '-' && output.length === 0) {
 				output.push(expression[i]);
-			}/* else if (isNumeric(expression[i]) && stack.slice(-1)[0] === '-' && stack.length === 1) {
-				output.push(output.pop() + expression[i]);
-			} */else if (expression[i] === '(') {
+			} else if (expression[i] === '(') {
 				stack.push(expression[i]);
 			} else if (expression[i] === ')') {
-				console.log(stack)
 				while (stack.slice(-1)[0] != '(') {
 					output.push(stack.pop());
 				}
@@ -63,15 +57,12 @@
 		while (stack.length !== 0) {
 			stack.slice(-1)[0] !== ')' ? output.push(stack.pop()) : stack.pop();
 		}
-
-		//console.log(stack, output);
 		return output;
 	}
 
-	//var rpn = getRpn('7+(2*(2+3))^2-10^2+(44-4/2)');
-
-	function calcRpn(rpn) {
+	function calcRpn(rpn) { //	Вычисление выражения в обратной польской записи
 		var stack = [];
+		var result;
 		var n1, n2, res;
 		rpn.forEach(function(item) {
 			if (isNumeric(item)) {
@@ -101,49 +92,42 @@
 				stack.push(res);
 			}
 		});
-		//console.log(stack.pop());
-		return stack.pop();
+		result = +stack.pop().toFixed(10); //точность до 10 знака 
+		return isNaN(result) ? "Syntax error in the expression" : result;
 	}
 
-	//calcRpn(rpn);
-
-	function calculate() {
-		var input = document.querySelector('.expEditor').value;
+	function calculate(input) {
+		input = input || document.querySelector('.expEditor').value;
 		var rpn = getRpn(input);
-		console.log('(rpn)', rpn);
-		console.log('input', document.querySelector('.expEditor'))
 		document.querySelector('.expEditor').value = calcRpn(rpn);
-		//console.log(document.querySelector('#editWide').value)//.value=calcRpn(rpn);
-		//return calcRpn(rpn);
-
 	}
 
 	calculate.clear = function() {
 		document.querySelector('.expEditor').value = '';
+		document.querySelector('.expEditor').focus();
 	};
+
 	calculate.btnPressed = function(symbol) {
 		document.querySelector('.expEditor').value += symbol;
+		document.querySelector('.expEditor').focus();
 	};
 
-	//window.addEventListener('keyup', doOnKeydown, false);
+	window.addEventListener('keydown', doOnKeydown, false);
 
-	calculate.doOnKeydown = function(event) {
+	function doOnKeydown(event) {
 		event = event || window.event;
-		//event.preventDefault();  //вместо него event.returnValue = false;
-		//event.returnValue = false;
 		if (event.keyCode === ENTER_KEYCODE) {
 			event.preventDefault();
+			//event.returnValue = false;
 			calculate();
-			console.log('enter', window.calculate);
+		} else if (event.keyCode === ESCAPE_KEYCODE) {
+			event.preventDefault();
+			calculate.clear();
+		} else if (ALLOWED_SYMBOLS_KEYCODES.indexOf(event.keyCode) < 0) {
+			event.preventDefault();
 		}
-		return false;
-	};
-	/*function clear() {
-		console.log('clear');
-	}*/
+	}
 
-	//window.clear = clear;
 	window.calculate = calculate;
-	//calculator('7+(2*(2+3))^2-10^2+(44-4/2)');
-	//calculator('7+(-2+(-1))')
+
 })();
