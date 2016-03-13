@@ -1,0 +1,50 @@
+/*.tblCalc{
+			border:1px solid gray;
+			margin:0;
+			padding:0;
+			width:250px;
+			text-align:center;
+		}
+		.tblCalc input{
+			border:1px solid gray;
+			width:30px;
+			margin:4px;
+		}
+		#btnWide{
+			width:80px;
+		}
+		#editWide{
+			width:250px;
+		}
+*/
+.calc{
+	display:inline-block;
+	padding: 10px;
+	border:1px solid gray;
+}
+.calc input[type="text"]{
+	width:350px;
+	height: 25px;
+	font-size: 20px;
+}
+
+.calc .button{
+	float: left;
+	display: inline-block;
+	margin: 10px;
+}
+
+.calc .button input[type="Button"]{
+	width:45px;
+	height: 45px;
+	font-size: 20px;
+}
+
+.calc .row-of-buttons{
+text-align: center ;
+}
+.calc .row-of-buttons:after {
+    content: '';
+    display: block;
+    clear: both;
+}
