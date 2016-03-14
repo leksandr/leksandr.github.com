@@ -32,17 +32,26 @@
 		var stack = [];
 
 		for (var i = 0; i < expression.length; i++) {
-			if (operators.indexOf(expression[i]) > -1 || (expression[i] === '-' && expression[i - 1] != '(' && output.length !== 0)) {
-				if (stack.length === 0 || getPriority(expression[i]) > getPriority(stack.slice(-1)[0])) {
+			if (operators.indexOf(expression[i]) > -1 ||
+				(expression[i] === '-' && expression[i - 1] != '(' && output.length !== 0)) {
+				if (stack.length === 0 ||
+					getPriority(expression[i]) > getPriority(stack.slice(-1)[0])) {
 					stack.push(expression[i]);
 				} else {
-					while (getPriority(expression[i]) <= getPriority(stack.slice(-1)[0]) && stack.length !== 0 && stack.slice(-1)[0] != '(') {
+					while (getPriority(expression[i]) <= getPriority(stack.slice(-1)[0]) &&
+						stack.length !== 0 && stack.slice(-1)[0] != '(') {
 						output.push(stack.pop());
 					}
 					stack.push(expression[i]);
 				}
-			} else if (isNumeric(expression[i]) || expression[i] === '.' || (expression[i] === '-' && expression[i - 1] === '(')) {
-				isNumeric(expression[i - 1]) || expression[i - 1] === '.' || (expression[i - 1] === '-' && expression[i - 2] === '(') || (isNumeric(expression[i]) && output.slice(-1)[0] === '-' && output.length === 1) ? output.push(output.pop() + expression[i]) : output.push(expression[i]);
+			} else if (isNumeric(expression[i]) ||
+				expression[i] === '.' ||
+				(expression[i] === '-' && expression[i - 1] === '(')) {
+				isNumeric(expression[i - 1]) ||
+					expression[i - 1] === '.' ||
+					(expression[i - 1] === '-' && expression[i - 2] === '(') ||
+					(isNumeric(expression[i]) && output.slice(-1)[0] === '-' && output.length === 1) ?
+					output.push(output.pop() + expression[i]) : output.push(expression[i]);
 			} else if (expression[i] === '-' && output.length === 0) {
 				output.push(expression[i]);
 			} else if (expression[i] === '(') {
@@ -118,7 +127,6 @@
 		event = event || window.event;
 		if (event.keyCode === ENTER_KEYCODE) {
 			event.preventDefault();
-			//event.returnValue = false;
 			calculate();
 		} else if (event.keyCode === ESCAPE_KEYCODE) {
 			event.preventDefault();

@@ -4,6 +4,7 @@
 	border:1px solid gray;
 	background: #A7C0DC;
 }
+
 .calc textarea{
 	font-size: 19px;
 }
@@ -29,4 +30,8 @@
 	content: '';
 	display: block;
 	clear: both;
+}
+
+p {
+	font-size:18px;
 }
