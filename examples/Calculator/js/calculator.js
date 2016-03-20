@@ -1,17 +1,62 @@
 (function() {
 	'use strict';
-	var ENTER_KEYCODE = 13;
-	var ESCAPE_KEYCODE = 27;
-	var ALLOWED_SYMBOLS_KEYCODES = [
-		96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
-		110, 111, 35, 36, 37, 38, 39, 40, 48, 54, 56, 57, 8
-	]; //  http://filesd.net/kibor/codekeys.php
+
+	function Calculator(node) {
+		Calculator.ENTER_KEYCODE = 13;
+		Calculator.ESCAPE_KEYCODE = 27;
+		Calculator.ALLOWED_SYMBOLS_KEYCODES = [
+			96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+			110, 111, 35, 36, 37, 38, 39, 40, 48, 54, 56, 57, 8
+		]; //  http://filesd.net/kibor/codekeys.php
+		this.node = node;
+		this._drawCalculator();
+		this.node.addEventListener('keydown', this._doOnKeydown.bind(this), false);
+		this.node.querySelector('.buttons-wrap').addEventListener('click', this._btnPressed.bind(this), false);
+	}
 
 	function isNumeric(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
-	function getPriority(operator) {
+	Calculator.prototype._drawCalculator = function() {
+		this.node.innerHTML =
+			'<form class="calc"name="calc" action="">' +
+			'<div class="exp-wrap">' +
+			'<textarea autofocus autocomplete="off" class="expEditor" name="expEditor" type = "text" placeholder="0" rows="4" cols="32"></textarea>' +
+			'</div>' +
+			'<div class="buttons-wrap">' +
+			'<div class="row-of-buttons">' +
+			'<div class="button"><input name="btnSeven" type="Button" value="7" ></div>' +
+			'<div class="button"><input name="btnEight" type="Button" value="8" ></div>' +
+			'<div class="button"><input name="btnNine" type="Button" value="9" ></div>' +
+			'<div class="button"><input name="btnPlus" type="Button"	value="+" ></div>' +
+			'<div class="button"><input name="btnClear" type="Button" value="C" ></div>' +
+			'</div>' +
+			'<div class="row-of-buttons">' +
+			'<div class="button"><input name="btnFour" type="Button" value="4" ></div>' +
+			'<div class="button"><input name="btnFive" type="Button" value="5" ></div>' +
+			'<div class="button"><input name="btnSix" type="Button" value="6" ></div>' +
+			'<div class="button"><input name="btnMinus" type="Button"	value="-" ></div>' +
+			'<div class="button"><input name="btnPow" type="Button" value="^" ></div>' +
+			'</div>' +
+			'<div class="row-of-buttons">' +
+			'<div class="button"><input name="btnOne" type="Button" value="1" ></div>' +
+			'<div class="button"><input name="btnTwo" type="Button" value="2" ></div>' +
+			'<div class="button"><input name="btnThree" type="Button" value="3" ></div>' +
+			'<div class="button"><input name="btnMultiply" type="Button"	value="*" ></div>' +
+			'<div class="button"><input name="btnDivide" type="Button"	value="/" ></div>' +
+			'</div>' +
+			'<div class="row-of-buttons">' +
+			'<div class="button"><input name="btnZero" type="Button" value="0" ></div>' +
+			'<div class="button"><input name="btnDecimal" type="Button" value="." ></div>' +
+			'<div class="button"><input name="btnBracketOpen" type="Button"	value="(" ></div>' +
+			'<div class="button"><input name="btnBracketClose" type="Button"	value=")" ></div>' +
+			'<div class="button"><input name="btnEquals" type="Button"	value="=" </div>' +
+			'</div>' +
+			'</form>';
+	};
+
+	Calculator.prototype._getPriority = function(operator) {
 		switch (operator) {
 			case "+":
 			case "-":
@@ -24,9 +69,9 @@
 			default:
 				return 4;
 		}
-	}
+	};
 
-	function getRpn(expression) { //Преобразование в обратную польскую запись
+	Calculator.prototype._getRpn = function(expression) { //Преобразование в обратную польскую запись
 		var output = [];
 		var operators = ['+', '*', '/', '^'];
 		var stack = [];
@@ -35,10 +80,10 @@
 			if (operators.indexOf(expression[i]) > -1 ||
 				(expression[i] === '-' && expression[i - 1] != '(' && output.length !== 0)) {
 				if (stack.length === 0 ||
-					getPriority(expression[i]) > getPriority(stack.slice(-1)[0])) {
+					this._getPriority(expression[i]) > this._getPriority(stack.slice(-1)[0])) {
 					stack.push(expression[i]);
 				} else {
-					while (getPriority(expression[i]) <= getPriority(stack.slice(-1)[0]) &&
+					while (this._getPriority(expression[i]) <= this._getPriority(stack.slice(-1)[0]) &&
 						stack.length !== 0 && stack.slice(-1)[0] != '(') {
 						output.push(stack.pop());
 					}
@@ -67,9 +112,9 @@
 			stack.slice(-1)[0] !== ')' ? output.push(stack.pop()) : stack.pop();
 		}
 		return output;
-	}
+	};
 
-	function calcRpn(rpn) { //	Вычисление выражения в обратной польской записи
+	Calculator.prototype._calcRpn = function(rpn) { //	Вычисление выражения в обратной польской записи
 		var stack = [];
 		var result;
 		var n1, n2, res;
@@ -103,39 +148,44 @@
 		});
 		result = +stack.pop().toFixed(10); //точность до 10 знака 
 		return isNaN(result) ? "Syntax error in the expression" : result;
-	}
-
-	function calculate(input) {
-		input = input || document.querySelector('.expEditor').value;
-		var rpn = getRpn(input);
-		document.querySelector('.expEditor').value = calcRpn(rpn);
-	}
-
-	calculate.clear = function() {
-		document.querySelector('.expEditor').value = '';
-		document.querySelector('.expEditor').focus();
 	};
 
-	calculate.btnPressed = function(symbol) {
-		document.querySelector('.expEditor').value += symbol;
-		document.querySelector('.expEditor').focus();
+	Calculator.prototype.calculate = function(input) {
+		this.input = input || this.node.querySelector('.expEditor').value;
+		var rpn = this._getRpn(this.input);
+		this.node.querySelector('.expEditor').value = this._calcRpn(rpn);
 	};
 
-	window.addEventListener('keydown', doOnKeydown, false);
+	Calculator.prototype._btnPressed = function(event) {
+		if (event.target.value === 'C') {
+			this._clear();
+		} else if (event.target.value === '=') {
+			this.calculate();
+		}
+		else{
+			this.node.querySelector('.expEditor').value += event.target.value;
+			this.node.querySelector('.expEditor').focus();
+		}
+	};
 
-	function doOnKeydown(event) {
-		event = event || window.event;
-		if (event.keyCode === ENTER_KEYCODE) {
+	Calculator.prototype._clear = function() {
+		this.node.querySelector('.expEditor').value = '';
+		this.node.querySelector('.expEditor').focus();
+	};
+
+	Calculator.prototype._doOnKeydown = function(event) {
+		event = event || this.node.event;
+		if (event.keyCode === Calculator.ENTER_KEYCODE) {
 			event.preventDefault();
-			calculate();
-		} else if (event.keyCode === ESCAPE_KEYCODE) {
+			this.calculate();
+		} else if (event.keyCode === Calculator.ESCAPE_KEYCODE) {
 			event.preventDefault();
-			calculate.clear();
-		} else if (ALLOWED_SYMBOLS_KEYCODES.indexOf(event.keyCode) < 0) {
+			this._clear();
+		} else if (Calculator.ALLOWED_SYMBOLS_KEYCODES.indexOf(event.keyCode) < 0) {
 			event.preventDefault();
 		}
-	}
+	};
 
-	window.calculate = calculate;
+	window.Calculator = Calculator;
 
 })();

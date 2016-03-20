@@ -4,43 +4,12 @@
 	<meta charset="UTF-8">
 	<title>Calculator</title>
 	<link rel="stylesheet" href="css/calc.css">
+	<script src="js/calculator.js"></script>
 </head>
 <body>
-	<form class="calc"name="calc" action="">
-		<div class="exp-wrap">
-			<textarea autofocus autocomplete="off" class="expEditor" name="expEditor" type = "text" placeholder="0" rows="4" cols="32"></textarea>
-		</div>
-		<div class="buttons-wrap">
-			<div class="row-of-buttons">
-				<div class="button"><input name="btnSeven" type="Button" value="7" onclick="calculate.btnPressed('7')" /></div>
-				<div class="button"><input name="btnEight" type="Button" value="8" onclick="calculate.btnPressed('8')" /></div>
-				<div class="button"><input name="btnNine" type="Button" value="9" onclick="calculate.btnPressed('9')" /></div>
-				<div class="button"><input name="btnPlus" type="Button"	value="+" onclick="calculate.btnPressed('+')" /></div>
-				<div class="button"><input name="btnClear" type="Button" value="C" onclick="calculate.clear()" /></div>
-			</div>
-			<div class="row-of-buttons">
-				<div class="button"><input name="btnFour" type="Button" value="4" onclick="calculate.btnPressed('4')"></div>
-				<div class="button"><input name="btnFive" type="Button" value="5" onclick="calculate.btnPressed('5')"></div>
-				<div class="button"><input name="btnSix" type="Button" value="6" onclick="calculate.btnPressed('6')"></div>
-				<div class="button"><input name="btnMinus" type="Button"	value="-" onclick="calculate.btnPressed('-')" /></div>
-				<div class="button"><input name="btnPow" type="Button" value="^" onclick="calculate.btnPressed('^')"></div>
-			</div>
-			<div class="row-of-buttons">
-				<div class="button"><input name="btnOne" type="Button" value="1" onclick="calculate.btnPressed('1')"></div>
-				<div class="button"><input name="btnTwo" type="Button" value="2" onclick="calculate.btnPressed('2')"></div>
-				<div class="button"><input name="btnThree" type="Button" value="3" onclick="calculate.btnPressed('3')"></div>
-				<div class="button"><input name="btnMultiply" type="Button"	value="*" onclick="calculate.btnPressed('*')" /></div>
-				<div class="button"><input name="btnDivide" type="Button"	value="/" onclick="calculate.btnPressed('/')" /></div>
-			</div>
-			<div class="row-of-buttons">
-				<div class="button"><input name="btnZero" type="Button" value="0" onclick="calculate.btnPressed('0')"></div>
-				<div class="button"><input name="btnDecimal" type="Button" value="." onclick="calculate.btnPressed('.')"></div>
-				<div class="button"><input name="btnBracketOpen" type="Button"	value="(" onclick="calculate.btnPressed('(')" ></div>
-				<div class="button"><input name="btnBracketClose" type="Button"	value=")" onclick="calculate.btnPressed(')')" ></div>
-				<div class="button"><input name="btnEquals" type="Button"	value="=" onclick="calculate()" ></div>
-			</div>
-		</div>
-	</form>
+<div class="target1"></div>
+<div class="target2"></div>
+	
 	<p>	
 		Калькулятор позволяет производить простые арифметические вычисления <br>
 		(сложение, вычитание, умножение, деление, возведение в степень). 
@@ -56,6 +25,12 @@
 	<p>
 		Посмотреть код можно здесь <a href="https://github.com/leksandr/leksandr.github.com/tree/master/examples/Calculator">https://github.com/leksandr/leksandr.github.com/tree/master/examples/Calculator</a>
 	</p>
-	<script src="js/calculator.js"></script>
+	<script type="text/javascript">
+		var node1 = document.querySelector('.target1');
+		window.calculator = new Calculator(node1);
+		//var node2 = document.querySelector('.target2');
+		//window.calculator2 = new Calculator(node2);
+	</script>
+	
 </body>
 </html>
